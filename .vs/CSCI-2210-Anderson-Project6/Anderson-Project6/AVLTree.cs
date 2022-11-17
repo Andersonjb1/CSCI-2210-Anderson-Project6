@@ -31,12 +31,12 @@ namespace Anderson_Project6
                     current = n;
                     return current;
                 }
-                else if (n.data.Title.CompareTo(current.data.Title) < 0)
+                else if (n.Data.Title.CompareTo(current.Data.Title) < 0)
                 {
                     current.left = RecursiveInsert(current.left, n);
                     current = balance_tree(current);
                 }
-                else if (n.data.Title.CompareTo(current.data.Title) > 0)
+                else if (n.Data.Title.CompareTo(current.Data.Title) > 0)
                 {
                     current.right = RecursiveInsert(current.right, n);
                     current = balance_tree(current);
@@ -83,7 +83,7 @@ namespace Anderson_Project6
                 else
                 {
                     //left subtree
-                    if (current.data.Title.CompareTo(current.data.Title) < 0)
+                    if (current.Data.Title.CompareTo(current.Data.Title) < 0)
                     {
                         current.left = Delete(current.left, target);
                         if (balance_factor(current) == -2)//here
@@ -99,7 +99,7 @@ namespace Anderson_Project6
                         }
                     }
                     //right subtree
-                    else if (current.data.Title.CompareTo(current.data.Title) > 0)
+                    else if (current.Data.Title.CompareTo(current.Data.Title) > 0)
                     {
                         current.right = Delete(current.right, target);
                         if (balance_factor(current) == 2)
@@ -125,8 +125,8 @@ namespace Anderson_Project6
                             {
                                 parent = parent.left;
                             }
-                            current.data = parent.data;
-                            current.right = Delete(current.right, parent.data);
+                            current.Data = parent.Data;
+                            current.right = Delete(current.right, parent.Data);
                             if (balance_factor(current) == 2)//rebalancing
                             {
                                 if (balance_factor(current.left) >= 0)
@@ -146,9 +146,9 @@ namespace Anderson_Project6
             }
             public void Find(Book key)
             {
-                if (Find(key, root).data == key)
+                if (Find(key, root).Data == key)
                 {
-                    Console.WriteLine("{0} was found!", key);
+                    Console.WriteLine("{0} was found!", key.Title);
                 }
                 else
                 {
@@ -158,9 +158,9 @@ namespace Anderson_Project6
             private Node Find(Book target, Node current)
             {
 
-                if (target.Title.CompareTo(current.data.Title) < 0)
+                if (target.Title.CompareTo(current.Data.Title) < 0)
                 {
-                    if (target.Title == current.data.Title)
+                    if (target.Title == current.Data.Title)
                     {
                         return current;
                     }
@@ -169,7 +169,7 @@ namespace Anderson_Project6
                 }
                 else
                 {
-                    if (target.Title == current.data.Title)
+                    if (target.Title == current.Data.Title)
                     {
                         return current;
                     }
@@ -193,7 +193,7 @@ namespace Anderson_Project6
                 if (current != null)
                 {
                     InOrderDisplayTree(current.left);
-                    current.data.Print();
+                    current.Data.Print();
                     InOrderDisplayTree(current.right);
                 }
             }
