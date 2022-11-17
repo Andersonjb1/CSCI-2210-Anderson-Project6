@@ -1,8 +1,32 @@
 {
   "version": 2,
-  "dgSpecHash": "rXa0BFGbXcVdRL7CnyrzYByP65SFnqTKCZrHiqkPbm1x9DYa1KwiNJeGLBttkTrlk7eHpV0fBTwoM2iEBm0+dA==",
+  "dgSpecHash": "J0CGyKBRjm4ylZS7jtRhoXgdVJTFcv2R/xbj64wUMjAmIvWmCWKYObZMinXmEYinOumFCuMRG/VZ2xBwle6ylg==",
   "success": true,
   "projectFilePath": "C:\\Users\\BLAIN\\source\\repos\\CSCI-2210-Anderson-Project6\\.vs\\CSCI-2210-Anderson-Project6\\Anderson-Project6\\Anderson-Project6.csproj",
-  "expectedPackageFiles": [],
-  "logs": []
+  "expectedPackageFiles": [
+    "C:\\Users\\BLAIN\\.nuget\\packages\\treelib\\1.1.1\\treelib.1.1.1.nupkg.sha512",
+    "C:\\Users\\BLAIN\\.nuget\\packages\\treelibinterface\\1.1.1\\treelibinterface.1.1.1.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'TreeLib 1.1.1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "TreeLib",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'TreeLibInterface 1.1.1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "TreeLibInterface",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
 }

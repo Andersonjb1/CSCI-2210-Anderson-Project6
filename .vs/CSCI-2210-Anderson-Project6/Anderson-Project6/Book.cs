@@ -7,13 +7,18 @@
         public int Pages { get; set; }
         public string Publisher { get; set; }
 
-        //public Book(string title, string author, int pages, string publisher)
-        //{
-        //    Title = title;
-        //    Author = author;
-        //    Pages = pages;
-        //    Publisher = publisher;
-        //}
+        public Book() 
+        {
+
+        }
+
+        public book(string title, string author, int pages, string publisher)
+        {
+            title = title;
+            author = author;
+            pages = pages;
+            publisher = publisher;
+        }
 
         public void Print() //displays the title, author, number of pages, and publisher of the book
         {
