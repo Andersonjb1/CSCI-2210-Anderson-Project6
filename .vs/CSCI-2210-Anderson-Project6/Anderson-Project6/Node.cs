@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Anderson_Project6
 {
-        class Node
+    class Node
+    {
+        public Book Data;
+        public Node left;
+        public Node right;
+        public Node(Book data)
         {
-            public Book Data;
-            public Node left;
-            public Node right;
-            public Node(Book data)
-            {
-                this.Data = data;
-            }
+            this.Data = data;
         }
+    }
 }

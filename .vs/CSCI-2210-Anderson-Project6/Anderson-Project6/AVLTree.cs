@@ -8,243 +8,246 @@ namespace Anderson_Project6
 {
     internal class AVLTree
     {
-            Node root;
-            public AVLTree()
+        Node root;
+        public AVLTree()
+        {
+        }
+        public void Add(Book data)
+        {
+            Node newItem = new Node(data);
+            if (root == null)
             {
+                root = newItem;
             }
-            public void Add(Book data)
+            else
             {
-                Node newItem = new Node(data);
-                if (root == null)
+                root = RecursiveInsert(root, newItem);
+            }
+        }
+        private Node RecursiveInsert(Node current, Node n)
+        {
+            if (current == null)
+            {
+                current = n;
+                return current;
+            }
+            else if (n.Data.Title.CompareTo(current.Data.Title) < 0)
+            {
+                current.left = RecursiveInsert(current.left, n);
+                current = balance_tree(current);
+            }
+            else if (n.Data.Title.CompareTo(current.Data.Title) > 0)
+            {
+                current.right = RecursiveInsert(current.right, n);
+                current = balance_tree(current);
+            }
+            return current;
+        }
+        //MAY BREAK HERE
+        private Node balance_tree(Node current)
+        {
+            int b_factor = balance_factor(current);
+            if (b_factor > 1)
+            {
+                if (balance_factor(current.left) > 0)
                 {
-                    root = newItem;
+                    current = RotateLL(current);
                 }
                 else
                 {
-                    root = RecursiveInsert(root, newItem);
+                    current = RotateLR(current);
                 }
             }
-            private Node RecursiveInsert(Node current, Node n)
+            else if (b_factor < -1)
             {
-                if (current == null)
+                if (balance_factor(current.right) > 0)
                 {
-                    current = n;
-                    return current;
+                    current = RotateRL(current);
                 }
-                else if (n.Data.Title.CompareTo(current.Data.Title) < 0)
-                {
-                    current.left = RecursiveInsert(current.left, n);
-                    current = balance_tree(current);
-                }
-                else if (n.Data.Title.CompareTo(current.Data.Title) > 0)
-                {
-                    current.right = RecursiveInsert(current.right, n);
-                    current = balance_tree(current);
-                }
-                return current;
-            }
-            //MAY BREAK HERE
-            private Node balance_tree(Node current)
-            {
-                int b_factor = balance_factor(current);
-                if (b_factor > 1)
-                {
-                    if (balance_factor(current.left) > 0)
-                    {
-                        current = RotateLL(current);
-                    }
-                    else
-                    {
-                        current = RotateLR(current);
-                    }
-                }
-                else if (b_factor < -1)
-                {
-                    if (balance_factor(current.right) > 0)
-                    {
-                        current = RotateRL(current);
-                    }
-                    else
-                    {
-                        current = RotateRR(current);
-                    }
-                }
-                return current;
-            }
-            public void Delete(Book target)
-            {//and here
-                root = Delete(root, target);
-            }
-            private Node Delete(Node current, Book target)
-            {
-                Node parent;
-                if (current == null)
-                { return null; }
                 else
                 {
-                    //left subtree
-                    if (current.Data.Title.CompareTo(current.Data.Title) < 0)
+                    current = RotateRR(current);
+                }
+            }
+            return current;
+        }
+        public void Delete(string target)
+        {//and here
+            root = Delete(root, target);
+            Console.WriteLine($"{target} deleted!");
+            Console.WriteLine("#############################");
+            DisplayTree();
+        }
+        private Node Delete(Node current, string target)
+        {
+            Node parent;
+            if (current == null)
+            { return null; }
+            else
+            {
+                //left subtree
+                if (current.Data.Title.CompareTo(current.Data.Title) < 0)
+                {
+                    current.left = Delete(current.left, target);
+                    if (balance_factor(current) == -2)//here
                     {
-                        current.left = Delete(current.left, target);
-                        if (balance_factor(current) == -2)//here
+                        if (balance_factor(current.right) <= 0)
                         {
-                            if (balance_factor(current.right) <= 0)
-                            {
-                                current = RotateRR(current);
-                            }
-                            else
-                            {
-                                current = RotateRL(current);
-                            }
+                            current = RotateRR(current);
+                        }
+                        else
+                        {
+                            current = RotateRL(current);
                         }
                     }
-                    //right subtree
-                    else if (current.Data.Title.CompareTo(current.Data.Title) > 0)
+                }
+                //right subtree
+                else if (current.Data.Title.CompareTo(current.Data.Title) > 0)
+                {
+                    current.right = Delete(current.right, target);
+                    if (balance_factor(current) == 2)
                     {
-                        current.right = Delete(current.right, target);
-                        if (balance_factor(current) == 2)
+                        if (balance_factor(current.left) >= 0)
+                        {
+                            current = RotateLL(current);
+                        }
+                        else
+                        {
+                            current = RotateLR(current);
+                        }
+                    }
+                }
+                //if target is found
+                else
+                {
+                    if (current.right != null)
+                    {
+                        //delete its inorder successor
+                        parent = current.right;
+                        while (parent.left != null)
+                        {
+                            parent = parent.left;
+                        }
+                        current.Data = parent.Data;
+                        current.right = Delete(current.right, parent.Data.Title);
+                        if (balance_factor(current) == 2)//rebalancing
                         {
                             if (balance_factor(current.left) >= 0)
                             {
                                 current = RotateLL(current);
                             }
-                            else
-                            {
-                                current = RotateLR(current);
-                            }
+                            else { current = RotateLR(current); }
                         }
                     }
-                    //if target is found
                     else
-                    {
-                        if (current.right != null)
-                        {
-                            //delete its inorder successor
-                            parent = current.right;
-                            while (parent.left != null)
-                            {
-                                parent = parent.left;
-                            }
-                            current.Data = parent.Data;
-                            current.right = Delete(current.right, parent.Data);
-                            if (balance_factor(current) == 2)//rebalancing
-                            {
-                                if (balance_factor(current.left) >= 0)
-                                {
-                                    current = RotateLL(current);
-                                }
-                                else { current = RotateLR(current); }
-                            }
-                        }
-                        else
-                        {   //if current.left != null
-                            return current.left;
-                        }
+                    {   //if current.left != null
+                        return current.left;
                     }
                 }
-                return current;
             }
-            public void Find(Book key)
+            return current;
+        }
+        public void Find(string key)
+        {
+            if (Find(key, root).Data.Title == key)
             {
-                if (Find(key, root).Data == key)
+                Console.WriteLine("{0} was found!", key);
+            }
+            else
+            {
+                Console.WriteLine("Nothing found!");
+            }
+        }
+        private Node Find(string title, Node current)
+        {
+
+            if (title.CompareTo(current.Data.Title) < 0)
+            {
+                if (title == current.Data.Title)
                 {
-                    Console.WriteLine("{0} was found!", key.Title);
+                    return current;
                 }
                 else
-                {
-                    Console.WriteLine("Nothing found!");
-                }
+                    return Find(title, current.left);
             }
-            private Node Find(Book target, Node current)
+            else
             {
-
-                if (target.Title.CompareTo(current.Data.Title) < 0)
+                if (title == current.Data.Title)
                 {
-                    if (target.Title == current.Data.Title)
-                    {
-                        return current;
-                    }
-                    else
-                        return Find(target, current.left);
+                    return current;
                 }
                 else
-                {
-                    if (target.Title == current.Data.Title)
-                    {
-                        return current;
-                    }
-                    else
-                        return Find(target, current.right);
-                }
+                    return Find(title, current.right);
+            }
 
-            }
-            public void DisplayTree()
+        }
+        public void DisplayTree()
+        {
+            if (root == null)
             {
-                if (root == null)
-                {
-                    Console.WriteLine("Tree is empty");
-                    return;
-                }
-                InOrderDisplayTree(root);
-                Console.WriteLine();
+                Console.WriteLine("Tree is empty");
+                return;
             }
-            private void InOrderDisplayTree(Node current)
+            InOrderDisplayTree(root);
+            Console.WriteLine();
+        }
+        private void InOrderDisplayTree(Node current)
+        {
+            if (current != null)
             {
-                if (current != null)
-                {
-                    InOrderDisplayTree(current.left);
-                    current.Data.Print();
-                    InOrderDisplayTree(current.right);
-                }
+                InOrderDisplayTree(current.left);
+                current.Data.Print();
+                InOrderDisplayTree(current.right);
             }
-            private int max(int l, int r)
-            {
-                return l > r ? l : r;
-            }
-            private int getHeight(Node current)
-            {
-                int height = 0;
-                if (current != null)
-                {
-                    int l = getHeight(current.left);
-                    int r = getHeight(current.right);
-                    int m = max(l, r);
-                    height = m + 1;
-                }
-                return height;
-            }
-            private int balance_factor(Node current)
+        }
+        private int max(int l, int r)
+        {
+            return l > r ? l : r;
+        }
+        private int getHeight(Node current)
+        {
+            int height = 0;
+            if (current != null)
             {
                 int l = getHeight(current.left);
                 int r = getHeight(current.right);
-                int b_factor = l - r;
-                return b_factor;
+                int m = max(l, r);
+                height = m + 1;
             }
-            private Node RotateRR(Node parent)
-            {
-                Node pivot = parent.right;
-                parent.right = pivot.left;
-                pivot.left = parent;
-                return pivot;
-            }
-            private Node RotateLL(Node parent)
-            {
-                Node pivot = parent.left;
-                parent.left = pivot.right;
-                pivot.right = parent;
-                return pivot;
-            }
-            private Node RotateLR(Node parent)
-            {
-                Node pivot = parent.left;
-                parent.left = RotateRR(pivot);
-                return RotateLL(parent);
-            }
-            private Node RotateRL(Node parent)
-            {
-                Node pivot = parent.right;
-                parent.right = RotateLL(pivot);
-                return RotateRR(parent);
-            }
+            return height;
+        }
+        private int balance_factor(Node current)
+        {
+            int l = getHeight(current.left);
+            int r = getHeight(current.right);
+            int b_factor = l - r;
+            return b_factor;
+        }
+        private Node RotateRR(Node parent)
+        {
+            Node pivot = parent.right;
+            parent.right = pivot.left;
+            pivot.left = parent;
+            return pivot;
+        }
+        private Node RotateLL(Node parent)
+        {
+            Node pivot = parent.left;
+            parent.left = pivot.right;
+            pivot.right = parent;
+            return pivot;
+        }
+        private Node RotateLR(Node parent)
+        {
+            Node pivot = parent.left;
+            parent.left = RotateRR(pivot);
+            return RotateLL(parent);
+        }
+        private Node RotateRL(Node parent)
+        {
+            Node pivot = parent.right;
+            parent.right = RotateLL(pivot);
+            return RotateRR(parent);
+        }
     }
 }

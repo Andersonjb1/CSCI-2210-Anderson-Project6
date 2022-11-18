@@ -7,7 +7,7 @@
         public int Pages { get; set; }
         public string Publisher { get; set; }
 
-        public Book() 
+        public Book()
         {
 
         }
@@ -24,10 +24,10 @@
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Title: " + Title);
-            Console.ForegroundColor= ConsoleColor.Gray;
+            Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine("Author: " + Author + "\n"
-                             +"Pages: " + Pages + "\n" 
-                             +"Publisher: " + Publisher + "\n");
+                             + "Pages: " + Pages + "\n"
+                             + "Publisher: " + Publisher + "\n");
 
         }
     }

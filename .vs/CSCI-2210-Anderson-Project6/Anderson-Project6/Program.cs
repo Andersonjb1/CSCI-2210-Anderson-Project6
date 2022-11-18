@@ -1,23 +1,40 @@
-﻿namespace Anderson_Project6
+﻿using Microsoft.VisualBasic.FileIO;
+
+namespace Anderson_Project6
 {
     internal class Program
     {
         static void Main(string[] args)
         {
+            string file = "C:\\Users\\BLAIN\\OneDrive - East Tennessee State University\\Classes\\Data Structures\\Project 6\\books.csv";
+            TextFieldParser parser = new TextFieldParser(file);
             AVLTree tree = new AVLTree();
-            Book book = new Book("aba","bab", 32, "aab");
-            Book bookie= new Book("tit", "vag", 69, "po");
-            Book zzzzz = new Book("z", "a", 1000, "ooo");
-            Book test = new Book(" ", "dd", 0, "");
-            Book test2 = new Book(" ", "22", 1, "");
-            tree.Add(zzzzz);
-            tree.Add(book);
-            tree.Add(bookie);
-            tree.Find(zzzzz);
-            tree.Delete(zzzzz);
-            tree.Delete(book);
+
+            parser.HasFieldsEnclosedInQuotes = true;
+            parser.SetDelimiters(",");
+            List<string[]> data = new List<string[]>();
+
+            while (!parser.EndOfData)
+            {
+
+                data.Add(parser.ReadFields());
+                for (int i = 0; i < data.Count(); i++)
+                {
+                    Book testBook = new(data[i][0], data[i][1], Int32.Parse(data[i][2]), data[i][3]);
+                    tree.Add(testBook);
+
+                    //testBook.Title = data[i][0];
+                    //testBook.Author = data[i][1];
+                    //testBook.Pages = Int32.Parse(data[i][2]);
+                    //testBook.Publisher = data[i][3];
+                    //tree.Add(testBook);
+                }
+
+
+            }
             tree.DisplayTree();
-            //Git is not working properly
+            tree.Find("Making Software");
+            tree.Delete("Making Software");
         }
     }
 }
