@@ -12,7 +12,7 @@ namespace Anderson_Project6
         public AVLTree()
         {
         }
-        public void Add(Book data)
+        public void CheckIn(Book data)
         {
             Node newItem = new Node(data);
             if (root == null)
@@ -71,14 +71,14 @@ namespace Anderson_Project6
             }
             return current;
         }
-        public void Delete(string target)
+        public void CheckOut(string target)
         {//and here
-            root = Delete(root, target);
-            Console.WriteLine($"{target} deleted!");
+            root = CheckOut(root, target);
+            Console.WriteLine($"{target} checked out!");
             Console.WriteLine("#############################");
             DisplayTree();
         }
-        private Node Delete(Node current, string target)
+        private Node CheckOut(Node current, string target)
         {
             Node parent;
             if (current == null)
@@ -88,7 +88,7 @@ namespace Anderson_Project6
                 //left subtree
                 if (current.Data.Title.CompareTo(current.Data.Title) < 0)
                 {
-                    current.left = Delete(current.left, target);
+                    current.left = CheckOut(current.left, target);
                     if (balance_factor(current) == -2)//here
                     {
                         if (balance_factor(current.right) <= 0)
@@ -104,7 +104,7 @@ namespace Anderson_Project6
                 //right subtree
                 else if (current.Data.Title.CompareTo(current.Data.Title) > 0)
                 {
-                    current.right = Delete(current.right, target);
+                    current.right = CheckOut(current.right, target);
                     if (balance_factor(current) == 2)
                     {
                         if (balance_factor(current.left) >= 0)
@@ -129,7 +129,7 @@ namespace Anderson_Project6
                             parent = parent.left;
                         }
                         current.Data = parent.Data;
-                        current.right = Delete(current.right, parent.Data.Title);
+                        current.right = CheckOut(current.right, parent.Data.Title);
                         if (balance_factor(current) == 2)//rebalancing
                         {
                             if (balance_factor(current.left) >= 0)
@@ -158,26 +158,26 @@ namespace Anderson_Project6
                 Console.WriteLine("Nothing found!");
             }
         }
-        private Node Find(string title, Node current)
+        private Node Find(string input, Node current)
         {
 
-            if (title.CompareTo(current.Data.Title) < 0)
+            if (input.CompareTo(current.Data.Title) < 0)
             {
-                if (title == current.Data.Title)
+                if (input == current.Data.Title)
                 {
                     return current;
                 }
                 else
-                    return Find(title, current.left);
+                    return Find(input, current.left);
             }
             else
             {
-                if (title == current.Data.Title)
+                if (input == current.Data.Title)
                 {
                     return current;
                 }
                 else
-                    return Find(title, current.right);
+                    return Find(input, current.right);
             }
 
         }
