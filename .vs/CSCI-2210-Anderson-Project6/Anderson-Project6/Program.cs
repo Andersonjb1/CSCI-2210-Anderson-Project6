@@ -1,5 +1,7 @@
 ﻿using Microsoft.VisualBasic.FileIO;
 using System.Collections;
+using System.DataStructures;
+using System.Linq;
 
 namespace Anderson_Project6
 {
@@ -7,35 +9,31 @@ namespace Anderson_Project6
     {
         static void Main(string[] args)
         {
+            #region Adding Books To Tree
             string file = "C:\\Users\\BLAIN\\OneDrive - East Tennessee State University\\Classes\\Data Structures\\Project 6\\books.csv";
             TextFieldParser parser = new TextFieldParser(file);
-            AVLTree library = new();
+            AvlTree<Book> tree = new AvlTree<Book>();
 
             parser.HasFieldsEnclosedInQuotes = true;
             parser.SetDelimiters(",");
             List<string[]> data = new List<string[]>();
+            int i = 0;
 
             while (!parser.EndOfData)
             {
-
                 data.Add(parser.ReadFields());
-                for (int i = 0; i < data.Count(); i++)
-                {
-                    Book testBook = new(data[i][0], data[i][1], Int32.Parse(data[i][2]), data[i][3]);
-                    library.CheckIn(testBook);
-
-                    //testBook.Title = data[i][0];
-                    //testBook.Author = data[i][1];
-                    //testBook.Pages = Int32.Parse(data[i][2]);
-                    //testBook.Publisher = data[i][3];
-                    //library.CheckIn(testBook);
-                }
-
-
+                Book testBook = new(data[i][0], data[i][1], Int32.Parse(data[i][2]), data[i][3]);
+                tree.Add(testBook);
+                i++;
             }
-            library.DisplayTree();
-            library.CheckOut("20000 Leagues Under the Sea");
-            library.DisplayTree();
+            #endregion
+
+            List<Book> testIO = tree.GetInorderEnumerator().ToList();
+
+            foreach (Book book in testIO)
+            {
+                book.Print();
+            }
         }
     }
 }
