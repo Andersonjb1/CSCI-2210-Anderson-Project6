@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Anderson_Project6
 {
-    internal class Book
+    internal class Book : IComparable<Book>
     {
         public string? Title { get; set; }
         public string? Author { get; set; }
@@ -13,7 +13,7 @@ namespace Anderson_Project6
 
         public Book()
         {
-            
+
         }
 
         public Book(string title, string author, int pages, string publisher)
@@ -32,6 +32,20 @@ namespace Anderson_Project6
             Console.WriteLine("Author: " + Author + "\n"
                              + "Pages: " + Pages + "\n"
                              + "Publisher: " + Publisher + "\n");
+
+        }
+
+        public int CompareTo(Book? book)
+        {
+            if (Title.CompareTo(book.Title) == 0)
+            {
+                return 0;
+            }
+            else if (Title.CompareTo(book.Title) == -1)
+            { 
+                return -1;
+            }
+            else return 1;
 
         }
     }
