@@ -1,23 +1,27 @@
-﻿namespace Anderson_Project6
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Anderson_Project6
 {
     internal class Book
     {
-        public string Title { get; set; }
-        public string Author { get; set; }
-        public int Pages { get; set; }
-        public string Publisher { get; set; }
+        public string? Title { get; set; }
+        public string? Author { get; set; }
+        public int? Pages { get; set; }
+        public string? Publisher { get; set; }
 
         public Book()
         {
-
+            
         }
 
         public Book(string title, string author, int pages, string publisher)
         {
-            Title = title;
-            Author = author;
-            Pages = pages;
-            Publisher = publisher;
+            this.Title = title;
+            this.Author = author;
+            this.Pages = pages;
+            this.Publisher = publisher;
         }
 
         public void Print() //displays the title, author, number of pages, and publisher of the book

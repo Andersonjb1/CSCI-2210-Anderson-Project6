@@ -8,12 +8,13 @@ namespace Anderson_Project6
 {
     class Node
     {
-        public Book Data;
-        public Node left;
-        public Node right;
+        public Book Value;
+        public Node Left;
+        public Node Right;
+        public Node Parent;
         public Node(Book data)
         {
-            this.Data = data;
+            this.Value = data;
         }
     }
 }

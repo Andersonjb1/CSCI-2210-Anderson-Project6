@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualBasic.FileIO;
+using System.Collections;
 
 namespace Anderson_Project6
 {
@@ -8,12 +9,11 @@ namespace Anderson_Project6
         {
             string file = "C:\\Users\\BLAIN\\OneDrive - East Tennessee State University\\Classes\\Data Structures\\Project 6\\books.csv";
             TextFieldParser parser = new TextFieldParser(file);
-            AVLTree library = new AVLTree();
+            AVLTree library = new();
 
             parser.HasFieldsEnclosedInQuotes = true;
             parser.SetDelimiters(",");
             List<string[]> data = new List<string[]>();
-            int index = 0;
 
             while (!parser.EndOfData)
             {
@@ -34,8 +34,8 @@ namespace Anderson_Project6
 
             }
             library.DisplayTree();
-            library.Find("20000 Leagues Under the Sea");
             library.CheckOut("20000 Leagues Under the Sea");
+            library.DisplayTree();
         }
     }
 }
