@@ -1,4 +1,11 @@
-﻿///////////////////////////////////////////////////////////////////////////////
+﻿
+using Microsoft.VisualBasic.FileIO;
+using System.Collections;
+using System.ComponentModel.Design.Serialization;
+using System.DataStructures;
+using System.Linq;
+
+///////////////////////////////////////////////////////////////////////////////
 //
 // Author: Blaine Anderson, Andersonjb1@etsu.edu
 // Course: CSCI-2210-001 - Data Structures
@@ -6,21 +13,16 @@
 // Description: Project demonstrating understanding of AVLTrees
 //
 ///////////////////////////////////////////////////////////////////////////////
-using Microsoft.VisualBasic.FileIO;
-using System.Collections;
-using System.ComponentModel.Design.Serialization;
-using System.DataStructures;
-using System.Linq;
 
 namespace Anderson_Project6
 {
     /// <summary>
-    /// 
+    /// Simulates a library system, allowing the user to check in and check out books.
     /// </summary>
     internal class Program
     {
         /// <summary>
-        /// 
+        /// Takes input, adds the CSV data into the AVL tree, and demonstrates everything is working
         /// </summary>
         /// <param name="args"></param>
         static void Main(string[] args)
@@ -47,12 +49,12 @@ namespace Anderson_Project6
             #endregion
 
             #region Adding the CSV data into the AVL Tree
-            while (!parser.EndOfData)
+            while (!parser.EndOfData)                                                               // loop until the parser has reached the end
             {
-                data.Add(parser.ReadFields());
-                Book testBook = new(data[i][0], data[i][1], Int32.Parse(data[i][2]), data[i][3]);
-                testBook.SetKey(input);
-                tree.Add(testBook);
+                data.Add(parser.ReadFields());                                                      // add the split CSV strings into the List
+                Book testBook = new(data[i][0], data[i][1], Int32.Parse(data[i][2]), data[i][3]);   // create a new book based off the split string
+                testBook.SetKey(input);                                                             // set the keys of the books to what the user has input
+                tree.Add(testBook);                                                                 // add the book to the AVL Tree
                 i++;
             }
             #endregion
@@ -134,5 +136,6 @@ namespace Anderson_Project6
             #endregion
         }
         #endregion
+        //Git won't let me commit unless I do this
     }
 }
